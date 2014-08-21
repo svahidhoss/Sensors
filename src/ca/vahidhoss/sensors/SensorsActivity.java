@@ -19,6 +19,9 @@ public class SensorsActivity extends ListActivity {
 	public static final String PREF_CAPTURE_FILE = "captureStatePrefs";
 	static final int MENU_CAPTURE_ON = 1;
 	static final int MENU_CAPTURE_OFF = 2;
+	
+	private ArrayAdapter<SensorItem> sensorAdapter;
+	private boolean captureState = false;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -30,7 +33,7 @@ public class SensorsActivity extends ListActivity {
 		List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
 		for (int i = 0; i < sensors.size(); ++i)
 			items.add(new SensorItem(sensors.get(i)));
-		sensorAdapter = new ArrayAdapter(this, R.layout.sensor_row, R.id.text1,
+		sensorAdapter = new ArrayAdapter<SensorItem>(this, R.layout.sensor_row, R.id.text1,
 				items);
 		setListAdapter(sensorAdapter);
 		SharedPreferences appPrefs = getSharedPreferences(PREF_CAPTURE_FILE,
@@ -77,6 +80,4 @@ public class SensorsActivity extends ListActivity {
 		startActivity(i);
 	}
 
-	private ArrayAdapter<SensorItem> sensorAdapter;
-	private boolean captureState = false;
 }
